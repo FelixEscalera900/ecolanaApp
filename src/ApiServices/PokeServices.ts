@@ -35,53 +35,61 @@ export class PokeServices {
   private readonly baseUrl = 'https://pokeapi.co/api/v2';
   private readonly baseListUrl = `${this.baseUrl}/pokemon`;
   private nextListUrl = this.baseListUrl;
+  private isRequestInProgress = false;
 
   public reset() {
       this.nextListUrl = this.baseListUrl;
   }
 
   async getPokemonFullData(url: string): Promise<Pokemon> {
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      const response = await fetch(url);
-      if (!response.ok) {
-          throw new Error('Error fetching poke');
-      }
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-      const data: Pokemon = await response.json();
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error('Error fetching poke');
+    }
 
-      return data;
+    const data: Pokemon = await response.json();
+    return data;
   }
 
   async getPokemonData(url: string): Promise<PokemonData> {
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      const response = await fetch(url);
-      if (!response.ok) {
-          throw new Error('Error fetching poke');
-      }
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-      const data: Pokemon = await response.json();
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error('Error fetching poke');
+    }
 
-      const pokemon: PokemonData = {
-          name: data.species.name,
-          imageUrl: data.sprites.front_default,
-      };
+    const data: Pokemon = await response.json();
+    const pokemon: PokemonData = {
+        name: data.species.name,
+        imageUrl: data.sprites.front_default,
+    };
 
-      return pokemon;
+    return pokemon;
   }
 
   async getPokemonList(): Promise<string[]> {
-      console.log(this.nextListUrl);
+    if (this.isRequestInProgress) return [];
 
+    this.isRequestInProgress = true;
+    console.log(this.nextListUrl);
+    try {
       const response = await fetch(this.nextListUrl);
       if (!response.ok) {
-          throw new Error('Error trayendo los pokemones');
+        throw new Error('Error trayendo los pokemones');
       }
 
       const data: PokemonListResponse = await response.json();
       this.nextListUrl = data.next;
 
       return data.results.map(p => p.url);
+    } catch (e) {
+      console.error("Error al obtener los pokemones:", e);
+      throw e
+    } finally {
+      this.isRequestInProgress = false;
+    }
   }
 }

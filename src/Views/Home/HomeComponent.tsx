@@ -9,16 +9,28 @@ import { PokeServices } from '../../ApiServices/PokeServices';
 import PokeCardComponent from './PokeCardComponent';
 import { useTheme } from '../../Contexts/ThemeContext';
 import { Theme } from '../../Themes/colors';
+import ErrorPopupComponent from '../Common/Components/ErrorPupupComponent';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 let pokeService = new PokeServices();
 
 const HomeComponent: React.FC = () => {
+
+
+  try{
+    throw new Error()
+
+  }
+  catch(e){
+    console.log(e)
+  }
   const navigation = useNavigation<NavigationProp>();
   const [pokemons, setPokemons] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
 
   const theme = useTheme().theme;
   const styles = useMemo(() => getStyles(theme), [theme]);
@@ -35,7 +47,7 @@ const HomeComponent: React.FC = () => {
       const data = await pokeService.getPokemonList();
       setPokemons((prevPokemons) => [...prevPokemons, ...data]);
     } catch (error) {
-      console.error(error);
+      setErrorMessage("Error en la api")
     } finally {
       setLoading(false);
     }
@@ -64,6 +76,7 @@ const HomeComponent: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <ErrorPopupComponent message={errorMessage}/>
       <View style={styles.buttonArea}>
         <PrimaryButtonComponent onPress={onPress} title="Logout" />
       </View>
@@ -73,7 +86,7 @@ const HomeComponent: React.FC = () => {
         renderItem={({ item }) => (
           <PokeCardComponent url={item} onPress={onCardPress} />
         )}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item }
         onEndReached={handleEndReached}
         onEndReachedThreshold={0.5}
         ListFooterComponent={loading ? <ActivityIndicator size="large" /> : null}
