@@ -1,20 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { LoginServiceProvider } from './src/Contexts/LoginServiceContext';
+import { LoginServiceMock } from './src/ApiServices/LoginService';
+import { ThemeProvider } from './src/Contexts/ThemeContext';
+import Navigation from './Navigation';
 
-export default function App() {
+const App: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider>
+      <LoginServiceProvider service={new LoginServiceMock()}>
+            <Navigation />
+      </LoginServiceProvider>
+    </ThemeProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
