@@ -30,7 +30,7 @@ Aplicación móvil en React Native para visualizar una lista de Pokémon y sus d
 
 ## Requisitos mínimos
 
-Para expicar las decisiones técnicas de la aplicación recorreré los requerimientos listados en las instrucciones de la prueba técnica y explicaré el como y porqué realicé cada requerimiento como lo realicé.
+Para explicar las decisiones técnicas de la aplicación recorreré los requerimientos listados en las instrucciones de la prueba técnica y explicaré el como y porqué realicé cada requerimiento como lo realicé.
 
 ### 1. Pantalla de Login
 
