@@ -92,7 +92,7 @@ Hay inidicadores de carga para cada pokemon, en el botón de login y en la scree
 
 **Mostrar mensaje de error si falla la API**
 
-Si falla la api al traer la imagen de pokemon se muestra un mensaje en el card que dice que hubo un error de network, si se pone e usuario error en el login se finge un error en la api y muestra un popup de error, para ser sincero olvidé manejar los errores en el cargado del listado y la pantalla de detalle del pokemon, pero creo que los dos casos que si maneje sirven para demostrar que sé cómo hacerlo.
+Si falla la api al traer la imagen de pokemon se muestra un mensaje en el card que dice que hubo un error de network, si se pone e usuario error en el login se finge un error en la api y muestra un popup de error, además si en la lista de pokemon falla la reques se muestra un popup de error.
 
 ### 4. Logout
 
