@@ -27,6 +27,39 @@ Aplicación móvil en React Native para visualizar una lista de Pokémon y sus d
 2. Pon más de 5 caracteres en el campo de usuario en el login para ver un error de validación extra
 3. Pon como nombre de usuario el ususario "error" para que la "api" falle
 
+## Estructura
+
+Casi todo el contenido esta en la carpeta src, solo la navegación está fuera, esta e sla estructura del proyecto:
+
+├───ApiServices //Servicios de consultas a apis
+│       LoginService.ts
+│       PokeServices.ts
+│
+├───Contexts //Contextos de context API
+│       LoginServiceContext.tsx
+│       ThemeContext.tsx
+│
+├───Hooks //Hooks personalizados
+│       UseFormField.ts
+│
+├───Themes //Manejo de temas de la app
+│       colors.ts
+│
+└───Views //Componentes y vistas
+    ├───Common //componentes comunes
+    │   └───Components
+    │           ErrorPupupComponent.tsx
+    │           InputComponent.tsx
+    │           PrimaryButtonComponent.tsx
+    │
+    ├───Home //Componentes de la vista home
+    │       HomeComponent.tsx
+    │       PokeCardComponent.tsx
+    │       PokemonDetailPageComponent.tsx
+    │
+    └───Login //componentes del login
+            LoginComponent.tsx
+
 
 ## Requisitos mínimos
 
